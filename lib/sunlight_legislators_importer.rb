@@ -4,10 +4,10 @@ require 'byebug'
 
 
 class SunlightLegislatorsImporter
-  def self.import(filename)
+  def self.import(filename=File.dirname(__FILE__) + "/../db/data/legislators.csv")
     
     csv = CSV.new(File.open(filename), :headers => true)
-    csv.first(10).each do |row|
+    csv.each do |row|
       @attribute_hash = Hash.new
       row.each do |column_name, value|
           if Legislator.attribute_names.include? (column_name)
@@ -18,7 +18,7 @@ class SunlightLegislatorsImporter
     end
   end
 end
-SunlightLegislatorsImporter.import("../db/data/legislators.csv")
+# SunlightLegislatorsImporter.import("../db/data/legislators.csv")
 
 # IF YOU WANT TO HAVE THIS FILE RUN ON ITS OWN AND NOT BE IN THE RAKEFILE, UNCOMMENT THE BELOW
 # AND RUN THIS FILE FROM THE COMMAND LINE WITH THE PROPER ARGUMENT.
